@@ -1,10 +1,9 @@
 # Hippo
 
-#### Helm Configuration
+### [1] Run hippo helm via kubtectl command
 
-In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to show a simulated real work Kubernetes deployment.
-So, we need at least three environments to deploy, it means. `dev`, `testing`,
-and `production`.
+In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to show a simulated real work Kubernetes deployment.  
+So, we need at least three environments to deploy, it means. `dev`, `testing`, and `production`.
 
 Before doing anything else, we should create three mentioned namespaces. Thurefore, run the following commands:
 
@@ -39,3 +38,30 @@ http://127.0.0.1:9001
 Testing:
 http://127.0.0.1:9002
 ```
+
+### [2] Run hippo helm via ArgoCD
+
+In order to run and execute this project via ArgoCD, first, we should clone 
+the project:
+```
+git clone https://github.com/rezaharasani/hippo.git
+```
+
+Then, change directory to project:
+```
+cd /path/to/cloned/project
+```
+Because this project is just defined to work with helm, so, we do not have seprate directory. Thurefore, we define our argocd parameter, like the 
+following commands:
+
+```
+argocd app create hipp \
+  --repo --repo https://github.com/rezaharasani/hippo.git \
+  --path . \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default
+```
+
+**Note**: Based on the above explaination, we should value `--path` parameter with `.` 
+(dot means the current directory, means all helm configs are placed in the current directory).   
+After installation, we can connect to the installed service like the above instructions.
