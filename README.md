@@ -1,4 +1,6 @@
-# Helm Configuration
+# Hippo
+
+#### Helm Configuration
 
 In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to show a simulated real work Kubernetes deployment.
 So, we need at least three environments to deploy, it means. `dev`, `testing`,
