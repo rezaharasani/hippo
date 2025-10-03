@@ -46,26 +46,26 @@ http://127.0.0.1:9002
 In order to run and execute this project via ArgoCD, first, we should clone 
 the project:
 ```
-git clone https://github.com/rezaharasani/hippo.git
+> git clone https://github.com/rezaharasani/hippo.git
 ```
 
 Then, change directory to hippo project:
 ```
-cd /path/to/project/.../hippo
+> cd /path/to/project/.../hippo
 ```
 
 Because this project is just defined to work with helm, so, we do not have seprate directory. Thurefore, we define our argocd parameter, like the 
 following commands:
 
 ```
-argocd app create hipp-[YOUR_NS] \
+> argocd app create hipp-[NS] \
   --repo --repo https://github.com/rezaharasani/hippo.git \
   --path helm-webapp/ \
   --dest-server https://kubernetes.default.svc \
-  --dest-namespace [YOUR_NS]
-  --values values-[YOUR_NS].yaml
+  --dest-namespace [NS]
+  --values values-[NS].yaml
 ```
-`YOUR_NS` means your namespace. (You can run the project under your namespace, like prod, dev, testing).
+`NS` means your namespace. (You can run the project under your namespace, like prod, dev, testing).
 
 **Note**: If you are into the `helm-webapp` directory, you can set value `--path` parameter 
 with `.` (`dot` means the current directory, means all helm configs are placed in the current 
