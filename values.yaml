@@ -1,0 +1,23 @@
+appName: "webapp"
+
+namespace: "default"
+
+image:
+  name: "devopsjourney1/mywebapp"
+  tag: "latest"
+
+configmap:
+  name: "configmap-v1.1.0"
+  data:
+    BG_COLOR: '#FFFFFF'
+    FONT_COLOR: '#000000'
+    CUSTOM_HEADER: 'Welcome to DevOps Journey!'
+
+deploy:
+  spec:
+    replicas: "2"
+
+svc:
+  port: "9000"
+  targetPort: "80"
+  type: "LoadBalancer"

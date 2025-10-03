@@ -1,0 +1,12 @@
+namespace: "prod"
+
+configmap:
+  name: "configmap-v1.1.0"
+  data:
+    BG_COLOR: '#FFFFFF'
+    FONT_COLOR: '#000000'
+    CUSTOM_HEADER: 'Welcome to DevOps Journey - Production Environment'
+
+deploy:
+  spec:
+    replicas: "5"
