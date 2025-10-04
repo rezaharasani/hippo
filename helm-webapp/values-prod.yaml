@@ -9,4 +9,4 @@ configmap:
 
 deploy:
   spec:
-    replicas: "10"
+    replicas: "2"
