@@ -5,7 +5,7 @@ configmap:
   data:
     BG_COLOR: '#2b2e2b'
     FONT_COLOR: '#FFFFFF'
-    CUSTOM_HEADER: 'Welcome to DevOps Journey - Testing Environment'
+    CUSTOM_HEADER: 'Welcome to DevOps Journey - Testing Environment (Helm)'
 
 deploy:
   spec:
