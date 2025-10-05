@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  ports:
+    - name: flask-prod
+      port: 6003
+      targetPort: 80

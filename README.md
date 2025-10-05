@@ -42,14 +42,9 @@ command to see the output.
 Subsequently, at the end, we can connect to our application in diffrent 
 environments via their spefic port for each.
 ```
-Production:
-http://127.0.0.1:9000
-
-Development:
-http://127.0.0.1:9001
-
-Testing:
-http://127.0.0.1:9002
+Development: http://127.0.0.1:9001
+Testing:     http://127.0.0.1:9002
+Production:  http://127.0.0.1:9003
 ```
 
 ### [2] Run hippo helm via ArgoCD
@@ -168,14 +163,9 @@ Subsequently, at the end, we can connect to our application in diffrent environm
 spefic port for each.  
 
 ```
-Production:
-http://127.0.0.1:6000
-
-Development:
-http://127.0.0.1:6001
-
-Testing:
-http://127.0.0.1:6002
+Development: http://127.0.0.1:6001
+Testing:     http://127.0.0.1:6002
+Production:  http://127.0.0.1:6003
 ```
 
 ### [2] Run hippo kustomize via ArgoCD
