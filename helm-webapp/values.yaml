@@ -1,4 +1,4 @@
-appName: "webapp"
+appName: "helm-webapp"
 
 namespace: "default"
 
