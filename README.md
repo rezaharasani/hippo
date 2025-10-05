@@ -21,6 +21,22 @@ commands:
 Before start this part, you should install `helm` command. (See [Installing Helm](https://helm.sh/docs/intro/install/) 
 guide)
 
+Our helm file structure is:
+```
+helm-webapp
+├── Chart.yaml
+├── charts
+├── templates
+│   ├── configmap.yml
+│   ├── deployment.yml
+│   ├── NOTES.txt
+│   └── service.yml
+├── values-dev.yaml
+├── values-prod.yaml
+├── values-testing.yaml
+└── values.yaml
+```
+
 After install helm command, you should run the following commands to deploy our application:
 ```
 > helm install webpp-release-prod --namespace prod --values values-prod.yaml helm-webapp/
