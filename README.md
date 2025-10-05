@@ -67,9 +67,39 @@ following commands:
 ```
 `NS` means your namespace. (You can run the project under your namespace, like prod, dev, testing).
 
-**Note**: If you are into the `helm-webapp` directory, you can set value `--path` parameter 
+**Notice**: If you are into the `helm-webapp` directory, you can set value `--path` parameter 
 with `.` (`dot` means the current directory, means all helm configs are placed in the current 
 directory).  
+
+**Notice**: You may want to run our project into a specific project in your ArgoCD. Thus, before 
+running the above argocd commands, you should create a new project. This method is usuall for real
+project. Then, follow the below steps (you suppose you want to add `gitops` project and also 
+deploy your application on `prod` namespace):
+
+If you already have the project gitops, update it to allow your repo and cluster/namespace:
+```
+argocd proj add-source gitops https://github.com/rezaharasani/hippo.git
+argocd proj add-destination my-proj https://kubernetes.default.svc prod
+```
+
+If the project doesn’t exist yet, you can create it like this:
+```
+argocd proj create gitops \
+  --description "my-proj project for hippo apps" \
+  --dest https://kubernetes.default.svc,prod \
+  --src https://github.com/rezaharasani/hippo.git
+```
+
+Then retry app creation:
+```
+argocd app create hippo \
+  --repo https://github.com/rezaharasani/hippo.git \
+  --path helm-webapp \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace prod \
+  --values values-prod.yaml \
+  --project gitops
+```
 
 After installation, we can connect to the installed service like the above instructions.
 
