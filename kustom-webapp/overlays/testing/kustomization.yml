@@ -5,9 +5,11 @@ namespace: testing
 
 patches:
   - path: replicas.yml
+  - path: port.yml
 
 configMapGenerator:
   - name: configmap-v1.2.0
     env: config.properties
 
+namePrefix: kustom-
 nameSuffix: -testing

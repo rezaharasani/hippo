@@ -11,4 +11,5 @@ configMapGenerator:
   - name: configmap-v1.2.0
     env: config.properties
 
+namePrefix: kustom-
 nameSuffix: -dev

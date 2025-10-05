@@ -2,6 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-prod-deploy
+  name: webapp-deploy
 spec:
   replicas: 4
