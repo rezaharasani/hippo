@@ -7,15 +7,7 @@ In order to run our application on your environment, you should clone the projec
 Then, change directory to hippo project:
 ```
 > cd hippo/
-```
-
-## Helm
-### [1] Run hippo helm via kubtectl command
-
-In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to 
-show a simulated real work Kubernetes deployment. So, we need at least three environments to deploy, 
-it means. `dev`, `testing`, and `production`.  
-
+```  
 Before doing anything else, we should create three mentioned namespaces. Thurefore, run the following 
 commands:  
 ```
@@ -23,13 +15,13 @@ commands:
 > kubectl create namespace testing
 > kubectl create namespace prod
 ```
-Then, we should execute `helm` command to run our deoloyments.  
 
-**Note**: This issue is so important that we have defined three customized `values`
-files for each namespace. Moreover, to run our application for every environment, we shuld set 
-`--values` parameter and pass our specific values file for that namespace. Therefore, run the 
-following commands:  
+## Helm
+### [1] Run hippo helm via kubtectl command
+Before start this part, you should install `helm` command. (See [Installing Helm](https://helm.sh/docs/intro/install/) 
+guide)
 
+After install helm command, you should run the following commands to deploy our application:
 ```
 > helm install webpp-release-prod --namespace prod --values values-prod.yaml helm-webapp/
 > helm install webpp-release-testing --namespace testing --values values-testing.yaml helm-webapp/
@@ -37,7 +29,10 @@ following commands:
 ```
 
 **Notice**: If you use the `Minikube` as a kubernetes cluster, you should run the `minikube tunnel` 
-command to see the output.    
+command to see the output.  
+
+**Notice**: The ``--values`` parameter is used to define your specific values.yml file. 
+This is useful in implementation of multiple deployments. 
 
 Subsequently, at the end, we can connect to our application in diffrent 
 environments via their spefic port for each.
