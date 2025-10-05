@@ -11,6 +11,5 @@ labels:
 commonAnnotations:
   app: webapp-annotations
 
-namePrefix: kustom-
 nameSuffix: -v1
 
