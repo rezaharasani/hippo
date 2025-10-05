@@ -106,7 +106,7 @@ argocd app create helm-hippo-prod \
 
 After installation, we can connect to the installed service like the above instructions.
 
-<p align="center">
+<p style="text-align: center;">
   <img src="img/hippo-helm-applications.png" alt="Alt text" width="500"/>
 </p>
 
@@ -198,6 +198,6 @@ We define our argocd parameter, like the following commands:
 
 After installation, you can connect to the installed service like the above instructions.
 
-<p align="center">
+<p style="text-align: center;">
   <img src="img/hippo-kustomize-applications.png" alt="Alt text" width="500"/>
 </p>
