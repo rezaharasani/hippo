@@ -106,6 +106,10 @@ argocd app create helm-hippo-prod \
 
 After installation, we can connect to the installed service like the above instructions.
 
+<p align="center">
+  <img src="img/hippo-helm-applications.png" alt="Alt text" width="500"/>
+</p>
+
 
 ## Kustomize
 ### [1] Run hippo kustomize via kubtectl command
@@ -191,3 +195,9 @@ We define our argocd parameter, like the following commands:
   --project [YOUR_PROJECT]
 ```
 `NS` means your namespace, and `YOUR_PROJECT` means your argocd defined project.
+
+After installation, you can connect to the installed service like the above instructions.
+
+<p align="center">
+  <img src="img/hippo-kustomize-applications.png" alt="Alt text" width="500"/>
+</p>
