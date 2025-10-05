@@ -1,36 +1,46 @@
-# Hippo
+# Hippo  
+
+In order to run our application on your environment, you should clone the project:
+```
+> git clone https://github.com/rezaharasani/hippo.git
+```  
+Then, change directory to hippo project:
+```
+> cd /path/to/project/.../hippo
+```
 
 ## Helm
 ### [1] Run hippo helm via kubtectl command
 
-In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to show a simulated real work Kubernetes deployment.  
-So, we need at least three environments to deploy, it means. `dev`, `testing`, and `production`.
+In this section, we want to deploy our application on kubernetes cluster (locally). We have decided to 
+show a simulated real work Kubernetes deployment. So, we need at least three environments to deploy, 
+it means. `dev`, `testing`, and `production`.  
 
-Before doing anything else, we should create three mentioned namespaces. Thurefore, run the following commands:
-
+Before doing anything else, we should create three mentioned namespaces. Thurefore, run the following 
+commands:  
 ```
 > kubectl create namespace dev
 > kubectl create namespace testing
 > kubectl create namespace prod
 ```
-
-Then, we should execute `helm` command to run our deoloyments.
+Then, we should execute `helm` command to run our deoloyments.  
 
 **Note**: This issue is so important that we have defined three customized `values`
 files for each namespace. Moreover, to run our application for every environment, we shuld set 
 `--values` parameter and pass our specific values file for that namespace. Therefore, run the 
-following commands:
+following commands:  
 
 ```
-> cd /path/to/project/helm/dir
 > helm install webpp-release-prod --namespace prod --values values-prod.yaml helm-webapp/
 > helm install webpp-release-testing --namespace testing --values values-testing.yaml helm-webapp/
 > helm install webpp-release-dev --namespace dev --values values-dev.yaml helm-webapp/
 ```
 
+**Notice**: If you use the `Minikube` as a kubernetes cluster, you should run the `minikube tunnel` 
+command to see the output.    
+
 Subsequently, at the end, we can connect to our application in diffrent 
 environments via their spefic port for each.
-
 ```
 Production:
 http://127.0.0.1:9000
@@ -43,20 +53,7 @@ http://127.0.0.1:9002
 ```
 
 ### [2] Run hippo helm via ArgoCD
-In order to run and execute this project via ArgoCD, first, we should clone 
-the project:
-```
-> git clone https://github.com/rezaharasani/hippo.git
-```
-
-Then, change directory to hippo project:
-```
-> cd /path/to/project/.../hippo
-```
-
-Because this project is just defined to work with helm, so, we do not have seprate directory. Thurefore, we define our argocd parameter, like the 
-following commands:
-
+We define our argocd parameter, like the following commands:
 ```
 > argocd app create hipp-[NS] \
   --repo --repo https://github.com/rezaharasani/hippo.git \
@@ -79,7 +76,7 @@ deploy your application on `prod` namespace):
 If you already have the project gitops, update it to allow your repo and cluster/namespace:
 ```
 argocd proj add-source gitops https://github.com/rezaharasani/hippo.git
-argocd proj add-destination my-proj https://kubernetes.default.svc prod
+argocd proj add-destination gitops https://kubernetes.default.svc prod
 ```
 
 If the project doesn’t exist yet, you can create it like this:
@@ -92,7 +89,7 @@ argocd proj create gitops \
 
 Then retry app creation:
 ```
-argocd app create hippo \
+argocd app create helm-hippo-prod \
   --repo https://github.com/rezaharasani/hippo.git \
   --path helm-webapp \
   --dest-server https://kubernetes.default.svc \
@@ -106,4 +103,90 @@ After installation, we can connect to the installed service like the above instr
 
 ## Kustomize
 ### [1] Run hippo kustomize via kubtectl command
+In this section, like previous, we want to deploy our application via command line. So, to do this,
+we use `kustomize` built-in command tha exists in `kubectl`. Therefure, we do not need to install
+an extra tool and everything is ready to run.
+
+Our kustomize file structure is:
+```
+kustom-webapp
+├── base
+│   ├── deployment.yml
+│   ├── kustomization.yml
+│   └── service.yml
+└── overlays
+    ├── dev
+    │   ├── config.properties
+    │   ├── kustomization.yml
+    │   ├── port.yml
+    │   └── replicas.yml
+    ├── prod
+    │   ├── config.properties
+    │   ├── kustomization.yml
+    │   └── replicas.yml
+    └── testing
+        ├── config.properties
+        ├── kustomization.yml
+        ├── port.yml
+        └── replicas.yml
+```
+As you can see, we defined three environmenets into the ovetlays directory: dev,testing,prod.
+each of them has its own variables, besides the base ones. A little changes have happened. So,
+to run our application in specific environment, you should run the following pattern commands:  
+
+```
+> kubectl apply -f kustom-webapp/overlays/[NS]
+```
+`NS` means your specific namespace.
+
+After runing the above command, the application will run automatically in your namespace and 
+all configs will set (deployment, service, pods, ...).
+
+For example, the following output will show while we run the above command in the prod evironment:
+```
+> kubectl get all -n prod
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/kustom-webapp-deploy-v1-6998bd4665-7rc8d   1/1     Running   0          21m
+pod/kustom-webapp-deploy-v1-6998bd4665-h4p5w   1/1     Running   0          21m
+pod/kustom-webapp-deploy-v1-6998bd4665-nktcn   1/1     Running   0          21m
+pod/kustom-webapp-deploy-v1-6998bd4665-wdr4t   1/1     Running   0          21m
+
+NAME                               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/kustom-webapp-service-v1   LoadBalancer   10.101.228.194   127.0.0.1     6000:31117/TCP   21m
+
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kustom-webapp-deploy-v1   4/4     4            4           21m
+
+NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/kustom-webapp-deploy-v1-6998bd4665   4         4         4       21m
+```
+
+**Notice**: If you use the `Minikube` as a kubernetes cluster, you should run the `minikube tunnel` 
+command to see the output.  
+
+Subsequently, at the end, we can connect to our application in diffrent environments via their 
+spefic port for each.  
+
+```
+Production:
+http://127.0.0.1:6000
+
+Development:
+http://127.0.0.1:6001
+
+Testing:
+http://127.0.0.1:6002
+```
+
 ### [2] Run hippo kustomize via ArgoCD
+We define our argocd parameter, like the following commands:
+
+```
+> argocd app create hippo-kustom-[NS] \
+  --repo https://github.com/rezaharasani/hippo.git \
+  --path kustom-webapp/overlays/[NS] \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace [NS]
+  --project [YOUR_PROJECT]
+```
+`NS` means your namespace, and `YOUR_PROJECT` means your argocd defined project.
