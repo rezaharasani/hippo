@@ -6,7 +6,7 @@ In order to run our application on your environment, you should clone the projec
 ```  
 Then, change directory to hippo project:
 ```
-> cd /path/to/project/.../hippo
+> cd hippo/
 ```
 
 ## Helm
