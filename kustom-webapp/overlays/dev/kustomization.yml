@@ -1,0 +1,14 @@
+resources:
+  - ../../base
+
+namespace: dev
+
+patches:
+  - path: replicas.yml
+  - path: port.yml
+
+configMapGenerator:
+  - name: configmap-v1.2.0
+    env: config.properties
+
+nameSuffix: -dev

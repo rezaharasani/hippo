@@ -1,0 +1,16 @@
+resources:
+  - deployment.yml
+  - service.yml
+
+labels:
+  - pairs:
+      app: webapp
+    includeSelectors: true
+    includeTemplates: true
+
+commonAnnotations:
+  app: webapp-annotations
+
+namePrefix: kustom-
+nameSuffix: -v1
+
