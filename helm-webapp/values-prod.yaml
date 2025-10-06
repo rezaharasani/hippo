@@ -9,7 +9,7 @@ configmap:
 
 deploy:
   spec:
-    replicas: "4"
+    replicas: "3"
 
 svc:
   port: "9003"
