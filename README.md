@@ -61,8 +61,8 @@ Production:  http://127.0.0.1:9003
 ### [2] Run hippo helm via ArgoCD
 We define our argocd parameter, like the following commands:
 ```
-argocd app create hipp-[NS] \
-  --repo --repo https://github.com/rezaharasani/hippo.git \
+argocd app create hipp-helm \
+  --repo https://github.com/rezaharasani/hippo.git \
   --path helm-webapp/ \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace [NS]
@@ -95,7 +95,7 @@ argocd proj create gitops \
 
 Then retry app creation:
 ```
-argocd app create helm-hippo-prod \
+argocd app create hippo-helm \
   --repo https://github.com/rezaharasani/hippo.git \
   --path helm-webapp \
   --dest-server https://kubernetes.default.svc \
@@ -187,7 +187,7 @@ Production:  http://127.0.0.1:6003
 We define our argocd parameter, like the following commands:
 
 ```
-argocd app create hippo-kustom-[NS] \
+argocd app create hippo-kustom \
   --repo https://github.com/rezaharasani/hippo.git \
   --path kustom-webapp/overlays/[NS] \
   --dest-server https://kubernetes.default.svc \
