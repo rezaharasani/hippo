@@ -2,18 +2,18 @@
 
 In order to run our application on your environment, you should clone the project:
 ```
-> git clone https://github.com/rezaharasani/hippo.git
+git clone https://github.com/rezaharasani/hippo.git
 ```  
 Then, change directory to hippo project:
 ```
-> cd hippo/
+cd hippo/
 ```  
 Before doing anything else, we should create three mentioned namespaces. Thurefore, run the following 
 commands:  
 ```
-> kubectl create namespace dev
-> kubectl create namespace testing
-> kubectl create namespace prod
+kubectl create namespace dev
+kubectl create namespace testing
+kubectl create namespace prod
 ```
 
 ## Helm
@@ -39,9 +39,9 @@ helm-webapp
 
 After install helm command, you should run the following commands to deploy our application:
 ```
-> helm install webpp-release-prod --namespace prod --values values-prod.yaml helm-webapp/
-> helm install webpp-release-testing --namespace testing --values values-testing.yaml helm-webapp/
-> helm install webpp-release-dev --namespace dev --values values-dev.yaml helm-webapp/
+helm install webpp-release-prod --namespace prod --values values-prod.yaml helm-webapp/
+helm install webpp-release-testing --namespace testing --values values-testing.yaml helm-webapp/
+helm install webpp-release-dev --namespace dev --values values-dev.yaml helm-webapp/
 ```
 
 **Notice**: If you use the `Minikube` as a kubernetes cluster, you should run the `minikube tunnel` 
@@ -61,7 +61,7 @@ Production:  http://127.0.0.1:9003
 ### [2] Run hippo helm via ArgoCD
 We define our argocd parameter, like the following commands:
 ```
-> argocd app create hipp-[NS] \
+argocd app create hipp-[NS] \
   --repo --repo https://github.com/rezaharasani/hippo.git \
   --path helm-webapp/ \
   --dest-server https://kubernetes.default.svc \
@@ -145,7 +145,7 @@ each of them has its own variables, besides the base ones. A little changes have
 to run our application in specific environment, you should run the following pattern commands:  
 
 ```
-> kubectl apply -f kustom-webapp/overlays/[NS]
+kubectl apply -f kustom-webapp/overlays/[NS]
 ```
 `NS` means your specific namespace.
 
@@ -154,7 +154,7 @@ all configs will set (deployment, service, pods, ...).
 
 For example, the following output will show while we run the above command in the prod evironment:
 ```
-> kubectl get all -n prod
+kubectl get all -n prod
 NAME                                           READY   STATUS    RESTARTS   AGE
 pod/kustom-webapp-deploy-v1-6998bd4665-7rc8d   1/1     Running   0          21m
 pod/kustom-webapp-deploy-v1-6998bd4665-h4p5w   1/1     Running   0          21m
@@ -187,7 +187,7 @@ Production:  http://127.0.0.1:6003
 We define our argocd parameter, like the following commands:
 
 ```
-> argocd app create hippo-kustom-[NS] \
+argocd app create hippo-kustom-[NS] \
   --repo https://github.com/rezaharasani/hippo.git \
   --path kustom-webapp/overlays/[NS] \
   --dest-server https://kubernetes.default.svc \
